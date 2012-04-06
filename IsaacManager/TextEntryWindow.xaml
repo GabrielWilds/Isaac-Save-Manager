@@ -1,0 +1,18 @@
+﻿<Window x:Class="IsaacManagerUI.TextEntryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Enter Save Slot Name:" Height="90" Width="200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Path=Name}"/>
+        <Button Grid.Column="0" Grid.Row="1" Height="20" Width="70" FontSize="10" Click="Cancel">Cancel</Button>
+        <Button Grid.Column="1" Grid.Row="1" Height="20" Width="70" FontSize="10" Click="OK">OK</Button>
+    </Grid>
+</Window>
