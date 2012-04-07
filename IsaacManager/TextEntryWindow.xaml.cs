@@ -19,20 +19,20 @@ namespace IsaacManagerUI
     /// </summary>
     public partial class TextEntryWindow : Window
     {
-        public TextEntryWindow(IsaacArchive _archive)
+        public TextEntryWindow()
         {
-            this.DataContext = new TextEntryWindowViewModel(_archive);
+            this.DataContext = new TextEntryWindowViewModel();
             InitializeComponent();
         }
 
         private void OK(object sender, RoutedEventArgs e)
         {
-            ((TextEntryWindowViewModel)this.DataContext).WriteSave();
             this.Close();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
         {
+            ((TextEntryWindowViewModel)this.DataContext).Name = null;
             this.Close();
         }
     }

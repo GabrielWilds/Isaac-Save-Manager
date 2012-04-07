@@ -56,26 +56,39 @@ namespace IsaacManagerUI
 
         public void SaveToSlot()
         {
-            SaveDataAccess.ArchiveCurrentSave(Archive.Name);
-            Archives = SaveDataAccess.GetArchiveList();
-            RaisePropertyChanged("Archives");
-            RaisePropertyChanged("LastArchive");
+            MessageBoxResult confirm = MessageBox.Show("Are you sure you want to overwrite this archived save?", "Confirm overwrite", MessageBoxButton.YesNo);
+            if (confirm == MessageBoxResult.Yes)
+            {
+                SaveDataAccess.ArchiveCurrentSave(Archive.Name);
+                Archives = SaveDataAccess.GetArchiveList();
+                RaisePropertyChanged("Archives");
+                RaisePropertyChanged("LastArchive");
+            }
         }
 
         public void SaveNewSlot()
         {
-            TextEntryWindow nameSlot = new TextEntryWindow(null);
+            TextEntryWindow nameSlot = new TextEntryWindow();
             nameSlot.ShowDialog();
-            RaisePropertyChanged("Archives");
-            RaisePropertyChanged("LastArchive");
+            string name = ((TextEntryWindowViewModel)nameSlot.DataContext).Name;
+            if (name != null)
+            {
+                SaveDataAccess.ArchiveCurrentSave(name);
+                Archives = SaveDataAccess.GetArchiveList();
+                RaisePropertyChanged("Archives");
+                RaisePropertyChanged("LastArchive");
+            }
         }
 
         public void RestoreSlot()
         {
             MessageBoxResult confirm = MessageBox.Show("Are you sure you want to overwrite your current save?", "Confirm overwrite", MessageBoxButton.YesNo);
             if (confirm == MessageBoxResult.Yes)
+            {
                 SaveDataAccess.RestoreArchivedSave(Archive);
-            RaisePropertyChanged("LastArchive");
+                Archives = SaveDataAccess.GetArchiveList();
+                RaisePropertyChanged("LastArchive");
+            }
         }
 
         public void DeleteSlot()
@@ -84,16 +97,23 @@ namespace IsaacManagerUI
             if (confirm == MessageBoxResult.Yes)
             {
                 SaveDataAccess.DeleteArchive(Archive);
+                Archives = SaveDataAccess.GetArchiveList();
                 RaisePropertyChanged("Archives");
             }
         }
 
         public void RenameSlot()
         {
-            TextEntryWindow rename = new TextEntryWindow(Archive);
+            TextEntryWindow rename = new TextEntryWindow();
             rename.ShowDialog();
-            RaisePropertyChanged("Archives");
-            RaisePropertyChanged("LastArchive");
+            string name = ((TextEntryWindowViewModel)rename.DataContext).Name;
+            if (name != null)
+            {
+                SaveDataAccess.RenameArchive(Archive, name);
+                Archives = SaveDataAccess.GetArchiveList();
+                RaisePropertyChanged("Archives");
+                RaisePropertyChanged("LastArchive");
+            }
         }
     }
 }

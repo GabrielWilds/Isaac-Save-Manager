@@ -13,24 +13,5 @@ namespace IsaacManagerUI
             get;
             set;
         }
-
-        private IsaacArchive Archive
-        {
-            get;
-            set;
-        }
-
-        public TextEntryWindowViewModel(IsaacArchive _archive)
-        {
-            Archive = _archive;
-        }
-
-        public void WriteSave()
-        {
-            if (Archive == null)
-                SaveDataAccess.ArchiveCurrentSave(Name);
-            else
-                SaveDataAccess.RenameArchive(Archive, Name);
-        }
     }
 }
